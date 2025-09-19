@@ -37,12 +37,14 @@ public class GameManager : MonoBehaviour
         return coins;
     }
 
-    public void AddTowerToRegistry(BaseTower tower)
+    public void AddTowerToRegistry(BaseTower tower, int cost)
     {
         if (!towerList.Contains(tower))
         {
             towerList.Add(tower);
         }
+        coins -= cost;
+        coinTracker.text = "Coins: " + coins;
     }
 
     public void RemoveTowerFromRegistry(BaseTower tower)

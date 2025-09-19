@@ -13,7 +13,6 @@ public class BaseTower : MonoBehaviour
     public GameManager gameManager;
    
 
-    [SerializeField] int price = 10;
     [SerializeField] float placementDuration = 2.0f;
     [SerializeField] float placementLockout = 0.4f; //must wait this long before you're able to press
 
@@ -24,13 +23,11 @@ public class BaseTower : MonoBehaviour
 
     public int unallowedRange = 5;
 
-    Camera cam;
     TowerState towerState = TowerState.Placing;
     float placementTracker = 0.0f;
     float lockoutTracker = 0.0f;
 
     LayerMask groundMask;
-    LayerMask unallowedMask;
     MeshRenderer mesh;
 
 
@@ -39,11 +36,10 @@ public class BaseTower : MonoBehaviour
     public int currentTier = 1;
     public int maxTier = 3;
 
+    int cost = 0;
     private void Awake()
     {
-        cam = Camera.main;
         groundMask = LayerMask.GetMask("Ground");
-        unallowedMask = LayerMask.GetMask("UnallowedArea");
         mesh = GetComponent<MeshRenderer>();
     }
 
@@ -51,10 +47,11 @@ public class BaseTower : MonoBehaviour
     {
          InitTower();
     }
-    public void BeginPlacement()
+    public void BeginPlacement(int cost)
     {
         lockoutTracker = placementLockout;
         towerState = TowerState.Placing;
+        this.cost = cost;
     }
 
     private void FixedUpdate()
@@ -65,6 +62,8 @@ public class BaseTower : MonoBehaviour
 
             switch (towerState)
         {
+
+
             case TowerState.Placing:
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, groundMask ))
@@ -89,6 +88,9 @@ public class BaseTower : MonoBehaviour
                 }
                 lockoutTracker -= Time.deltaTime;
                 break;
+
+
+
             case TowerState.Constructing:
                 placementTracker -= Time.deltaTime;
                 if (placementTracker <= 0.0f)
@@ -96,9 +98,13 @@ public class BaseTower : MonoBehaviour
                     placementTracker = 0.0f;
                     towerState = TowerState.Built;
                     mesh.material = builtMaterial;
-                    gameManager.AddTowerToRegistry(this);
+                    gameManager.AddTowerToRegistry(this, cost);
                 }
                 break;
+
+
+
+
             case TowerState.Built:
                 TowerLogic();
                 if (Physics.Raycast(ray, out RaycastHit mouseInfo, 1000.0f))
@@ -111,9 +117,6 @@ public class BaseTower : MonoBehaviour
                 }
                 break;
         }
-
-
-        Debug.Log("Tower state is " + towerState);
     }
 
     public virtual void InitTower()
