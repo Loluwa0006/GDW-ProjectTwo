@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7281407920983180458
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981812896460957575, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      propertyPath: m_Name
+      value: CoinTower
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6031939700550109036, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5981812896460957575, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 607894270583467076}
+  m_SourcePrefab: {fileID: 100100000, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+--- !u!1 &3895449636039353133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5981812896460957575, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
+  m_PrefabInstance: {fileID: 7281407920983180458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &607894270583467076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895449636039353133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e33b68ddeba8a48b4117b115174e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  price: 10
+  placementDuration: 2
+  placementLockout: 0.4
+  placingMaterialUnallowed: {fileID: 2100000, guid: 94077849a3a1a0a459b43eeabaf33c3e, type: 2}
+  placingMaterialAllowed: {fileID: 2100000, guid: d797fe2d0890c5d45b9684f2cad128d4, type: 2}
+  builtMaterial: {fileID: 2100000, guid: 057d5825c0ffc0c4e8b92bd4b5a5084b, type: 2}
+  constructingMaterial: {fileID: 2100000, guid: dec9a727fc8f32d4582fd8098e5d4069, type: 2}
+  unallowedRange: 5
+  currentTier: 1
+  maxTier: 3
+  upgradeDataList:
+  - mineSpeed: 80
+    upgradeCost: 5
+  - mineSpeed: 55
+    upgradeCost: 5
+  - mineSpeed: 30
+    upgradeCost: 250
