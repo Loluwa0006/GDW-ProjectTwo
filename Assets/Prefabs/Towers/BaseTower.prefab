@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5945484177345331770}
   - component: {fileID: 4299976929028854159}
   - component: {fileID: 6031939700550109036}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,3 +130,5 @@ MonoBehaviour:
   builtMaterial: {fileID: 2100000, guid: 057d5825c0ffc0c4e8b92bd4b5a5084b, type: 2}
   constructingMaterial: {fileID: 2100000, guid: dec9a727fc8f32d4582fd8098e5d4069, type: 2}
   unallowedRange: 5
+  currentTier: 1
+  maxTier: 3

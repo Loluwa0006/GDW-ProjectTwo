@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\assets\\scripts\\tower\\basetower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|c:\\users\\temia\\downloads\\gdw-iii projecttwo\\assets\\scripts\\tower\\basetower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tower\\basetower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|c:\\users\\temia\\downloads\\gdw-iii projecttwo\\assets\\scripts\\townhall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\assets\\scripts\\townhall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\townhall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|c:\\users\\temia\\downloads\\gdw-iii projecttwo\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76B9A78F-7CF0-1F87-CC78-947D6222F35A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -38,8 +38,29 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BaseTower.cs",
+              "DocumentMoniker": "C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\Assets\\Scripts\\Tower\\BaseTower.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Tower\\BaseTower.cs",
+              "ToolTip": "C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\Assets\\Scripts\\Tower\\BaseTower.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Tower\\BaseTower.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAswEQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T17:51:09.225Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -50,8 +71,7 @@
               "RelativeToolTip": "Assets\\Scripts\\TownHall.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAiwCEAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T23:18:40.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T23:18:40.404Z"
             },
             {
               "$type": "Document",
@@ -63,8 +83,7 @@
               "RelativeToolTip": "Assets\\Scripts\\GameManager.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAgwDgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T18:05:55.879Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T18:05:55.879Z"
             },
             {
               "$type": "Document",
@@ -76,8 +95,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Enemies\\BaseEnemy.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAqwD8AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T22:31:21.383Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T22:31:21.383Z"
             },
             {
               "$type": "Document",
@@ -105,19 +123,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BaseTower.cs",
-              "DocumentMoniker": "C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\Assets\\Scripts\\Tower\\BaseTower.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Tower\\BaseTower.cs",
-              "ToolTip": "C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\Assets\\Scripts\\Tower\\BaseTower.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Tower\\BaseTower.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAwwEYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T17:51:09.225Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
               "Title": "TowerPlacer.cs",
               "DocumentMoniker": "C:\\Users\\temia\\Downloads\\GDW-III ProjectTwo\\Assets\\Scripts\\Tower\\TowerPlacer.cs",
@@ -127,14 +132,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-18T18:06:35.451Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             }
           ]
         }

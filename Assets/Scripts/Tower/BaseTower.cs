@@ -67,10 +67,10 @@ public class BaseTower : MonoBehaviour
         {
             case TowerState.Placing:
 
-
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, groundMask ))
                 {
                     transform.position = Vector3Int.RoundToInt(hitInfo.point);
+                    Debug.Log("Mouse at pos " +  transform.position);
                 }
                 bool areaAllowed = gameManager.AreaClear(transform.position, unallowedRange);
 
