@@ -10,8 +10,6 @@ public class TownHall : MonoBehaviour
     int health = 0;
 
     List<BaseEnemy> attackingEnemies = new();
-
-
     private void Awake()
     {
         health = maxHealth;
@@ -20,7 +18,7 @@ public class TownHall : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.TryGetComponent(out BaseEnemy enemy ))
+        if (collision.transform.parent.TryGetComponent(out BaseEnemy enemy ))
         {
             attackingEnemies.Add(enemy);
             enemy.enemyDefeated.AddListener(OnAttackerDefeated);
@@ -29,7 +27,7 @@ public class TownHall : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out BaseEnemy enemy))
+        if (other.transform.parent.TryGetComponent(out BaseEnemy enemy))
         {
             OnAttackerDefeated(enemy);
         }

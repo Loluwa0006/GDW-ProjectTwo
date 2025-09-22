@@ -63,6 +63,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,6 +86,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -122,13 +125,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  price: 10
+  unallowedRange: 5
+  currentTier: 1
+  maxTier: 3
   placementDuration: 2
   placementLockout: 0.4
   placingMaterialUnallowed: {fileID: 2100000, guid: 94077849a3a1a0a459b43eeabaf33c3e, type: 2}
   placingMaterialAllowed: {fileID: 2100000, guid: d797fe2d0890c5d45b9684f2cad128d4, type: 2}
   builtMaterial: {fileID: 2100000, guid: 057d5825c0ffc0c4e8b92bd4b5a5084b, type: 2}
   constructingMaterial: {fileID: 2100000, guid: dec9a727fc8f32d4582fd8098e5d4069, type: 2}
-  unallowedRange: 5
-  currentTier: 1
-  maxTier: 3
+  mesh: {fileID: 5945484177345331770}
+  towerValue: 0

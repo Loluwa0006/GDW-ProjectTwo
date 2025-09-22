@@ -79,7 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  price: 10
   placementDuration: 2
   placementLockout: 0.4
   placingMaterialUnallowed: {fileID: 2100000, guid: 94077849a3a1a0a459b43eeabaf33c3e, type: 2}
@@ -91,8 +90,8 @@ MonoBehaviour:
   maxTier: 3
   upgradeDataList:
   - mineSpeed: 80
-    upgradeCost: 5
+    upgradeCost: 25
   - mineSpeed: 55
-    upgradeCost: 5
+    upgradeCost: 100
   - mineSpeed: 30
     upgradeCost: 250

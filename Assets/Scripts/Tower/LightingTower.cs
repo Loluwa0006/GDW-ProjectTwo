@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class LightingTower : BaseTower 
@@ -14,60 +15,57 @@ public class LightingTower : BaseTower
     }
 
     [SerializeField] List<UpgradeData> upgradeDataList = new();
+    [SerializeField] EnemyDetector detector;
+
     [SerializeField] int attackRadius = 10;
 
     Dictionary<int, UpgradeData> upgradeDataDict = new();
 
-    Dictionary<BaseEnemy, float> enemiesInRadius = new();
 
     UpgradeData currentData;
 
-    LayerMask enemyMask;
-    public override void InitTower()
+    private void Awake()
     {
-        base.InitTower();
-        gameManager = FindFirstObjectByType<GameManager>();
+
         int index = 1;
         foreach (var upgradeData in upgradeDataList)
         {
             upgradeDataDict[index] = upgradeData;
             index++;
         }
-        currentData = upgradeDataDict[1];
-        enemyMask = LayerMask.GetMask("Enemy");
+        detector.detectorArea.enabled = false;
 
+    }
+
+    public override void InitTower()
+    {
+        base.InitTower();
+        gameManager = FindFirstObjectByType<GameManager>();
+        currentData = upgradeDataDict[1];
+
+
+        detector.detectorArea.radius = attackRadius;
+
+    }
+
+    public override void OnTowerBuilt()
+    {
+        base.OnTowerBuilt();
+        detector.detectorArea.enabled = true;
     }
 
     public override void TowerLogic()
     {
-
-        List<Collider> enemyScan = Physics.OverlapBox(transform.position, new Vector3(attackRadius / 2, 1.0f, attackRadius / 2), Quaternion.identity, enemyMask).ToList();
-        Dictionary<BaseEnemy, float> tempDict = new(enemiesInRadius);
-        foreach (var enemy in enemiesInRadius.Keys)
+      
+        foreach (var enemy in detector.detectedEnemies.Keys.ToList())
         {
-            if (!enemyScan.Contains(enemy.enemyCollider))
-            {
-                tempDict.Remove(enemy);
-            }
-        }
-        enemiesInRadius = tempDict;
-
-        foreach (var enemy in enemyScan)
-        {
-            if (!enemy.TryGetComponent(out BaseEnemy scannedEnemy)) { continue; }
-            if (!enemiesInRadius.ContainsKey(scannedEnemy))
-            {
-                    enemiesInRadius.Add(scannedEnemy, currentData.attackSpeed); //immediately shoot whatever enters the tower's range
-            }
-        }
-
-        foreach (var enemy in enemiesInRadius.Keys.ToList())
-        {
-            enemiesInRadius[enemy] += Time.deltaTime;
-            if (enemiesInRadius[enemy] >= currentData.attackSpeed)
+            Debug.Log("looking at enemy " + enemy.name);
+            detector.detectedEnemies[enemy] += Time.deltaTime;
+            if (detector.detectedEnemies[enemy] >= currentData.attackSpeed)
             {
                 enemy.Damage(currentData.attackDamage);
-                enemiesInRadius[enemy] = 0;
+                detector.detectedEnemies[enemy] = 0;
+                Debug.Log("Hitting enemy " + enemy.name);
             }
         }
 

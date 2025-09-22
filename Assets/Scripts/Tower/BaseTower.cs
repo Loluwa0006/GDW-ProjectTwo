@@ -11,7 +11,13 @@ public class BaseTower : MonoBehaviour
     }
 
     public GameManager gameManager;
-   
+
+    public int unallowedRange = 5;
+
+    public int currentTier = 1;
+    public int maxTier = 3;
+
+
 
     [SerializeField] float placementDuration = 2.0f;
     [SerializeField] float placementLockout = 0.4f; //must wait this long before you're able to press
@@ -20,38 +26,38 @@ public class BaseTower : MonoBehaviour
     [SerializeField] Material placingMaterialAllowed;
     [SerializeField] Material builtMaterial;
     [SerializeField] Material constructingMaterial;
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] GameObject groundObject;
 
-    public int unallowedRange = 5;
+
 
     TowerState towerState = TowerState.Placing;
     float placementTracker = 0.0f;
     float lockoutTracker = 0.0f;
 
     LayerMask groundMask;
-    MeshRenderer mesh;
 
 
 
 
-    public int currentTier = 1;
-    public int maxTier = 3;
+
+   [HideInInspector] public int towerValue = 0;
 
     int cost = 0;
-    private void Awake()
-    {
-        groundMask = LayerMask.GetMask("Ground");
-        mesh = GetComponent<MeshRenderer>();
-    }
+    
 
     private void Start()
     {
          InitTower();
+        groundMask = LayerMask.GetMask("Ground");
+
     }
     public void BeginPlacement(int cost)
     {
         lockoutTracker = placementLockout;
         towerState = TowerState.Placing;
         this.cost = cost;
+        towerValue =Mathf.FloorToInt((float) cost / 2);
     }
 
     private void FixedUpdate()
@@ -68,15 +74,19 @@ public class BaseTower : MonoBehaviour
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, groundMask ))
                 {
+                    Debug.Log("Ray hitting " + hitInfo.collider.gameObject.name +", layer mask is  " + LayerMask.LayerToName(hitInfo.collider.gameObject.layer));
+                    
                     transform.position = Vector3Int.RoundToInt(hitInfo.point);
-                    Debug.Log("Mouse at pos " +  transform.position);
                 }
+                Debug.Log("Transform position is " + transform.position);
+                Debug.Log("Hit info point is " + hitInfo.point);
                 bool areaAllowed = gameManager.AreaClear(transform.position, unallowedRange);
 
                 mesh.material = areaAllowed ? placingMaterialAllowed : placingMaterialUnallowed;
 
                 if (Input.GetMouseButtonDown(0) && lockoutTracker <= 0.0f && areaAllowed)
                 {
+                    gameManager.AddTowerToRegistry(this, cost);
                     towerState = TowerState.Constructing;
                     placementTracker = placementDuration;
                     lockoutTracker = 0.0f;
@@ -93,13 +103,7 @@ public class BaseTower : MonoBehaviour
 
             case TowerState.Constructing:
                 placementTracker -= Time.deltaTime;
-                if (placementTracker <= 0.0f)
-                {
-                    placementTracker = 0.0f;
-                    towerState = TowerState.Built;
-                    mesh.material = builtMaterial;
-                    gameManager.AddTowerToRegistry(this, cost);
-                }
+                if (placementTracker <= 0.0f) OnTowerBuilt();
                 break;
 
 
@@ -117,6 +121,13 @@ public class BaseTower : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public virtual void OnTowerBuilt()
+    {
+        placementTracker = 0.0f;
+        towerState = TowerState.Built;
+        mesh.material = builtMaterial;
     }
 
     public virtual void InitTower()
