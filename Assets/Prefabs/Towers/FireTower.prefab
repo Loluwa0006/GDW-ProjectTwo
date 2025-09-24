@@ -224,7 +224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5981812896460957575, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
       propertyPath: m_Name
-      value: SpikeTower
+      value: FireTower
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6031939700550109036, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
@@ -279,15 +279,15 @@ MonoBehaviour:
   - attackSpeed: 3.5
     upgradeCost: 15
     attackDamage: 10
-    attackRadius: 2
+    attackRadius: 5
   - attackSpeed: 3.2
     upgradeCost: 30
     attackDamage: 15
-    attackRadius: 3
+    attackRadius: 6
   - attackSpeed: 2.6
     upgradeCost: 50
     attackDamage: 25
-    attackRadius: 5
+    attackRadius: 7
   detector: {fileID: 2472352722782483946}
 --- !u!23 &6558591530345256283 stripped
 MeshRenderer:

@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaveLogic());
         endScreen.gameObject.SetActive(false);
 
-        Time.timeScale = 7.0f;
-
     }
 
     public void InitUI()
@@ -193,7 +191,7 @@ public class GameManager : MonoBehaviour
         if (gameOver) { return; }
 
         gameOver = true;
-        endScreen.gameObject.SetActive(true);
+        endScreen.SetActive(true);
         loseText.gameObject.SetActive(!won);
         winText.gameObject.SetActive(won);
 

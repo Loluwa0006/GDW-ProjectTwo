@@ -44,6 +44,7 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] AudioClip hurtSFX;
     float originalHealthBarSize;
 
+    bool beingDestroyed = false;
 
     private void Awake()
     {
@@ -77,7 +78,7 @@ public class BaseEnemy : MonoBehaviour
         transform.LookAt( agent.destination );
 
         int rand = Random.Range(0, 10);
-        if (rand == 0)
+        if (rand == 5)
         {
             audioSource.PlayOneShot(spawnSFX);
         }
@@ -96,11 +97,12 @@ public class BaseEnemy : MonoBehaviour
     {
         Debug.Log("Decreasing health of " + name + " from " + health + " to " + (health - amount));
         health -= amount;
-        if (health < 0)
+        if (health <= 0 && !beingDestroyed)
         {
-            manager.AddCoins(1);
+            beingDestroyed = true;
             health = 0;
             StartCoroutine(DestroyEnemy());
+            return;
         }
         else
         {
@@ -121,10 +123,11 @@ public class BaseEnemy : MonoBehaviour
 
     IEnumerator DestroyEnemy()
     {
+        manager.AddCoins(1);
         yield return null;
         enemyDefeated.Invoke(this);
         gameObject.SetActive(false);
-        float waitDuration = Random.Range(0.7f, 1.3f);
+        beingDestroyed = false;
     }
 
 
