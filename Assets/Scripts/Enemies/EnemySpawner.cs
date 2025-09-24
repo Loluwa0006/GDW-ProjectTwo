@@ -1,12 +1,16 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+
+    const int NUMBEROFENEMIESTOLOAD = 200;
     [SerializeField] float minSpawnDelay = 2.4f;
     [SerializeField] float maxSpawnDelay = 4.0f;
     [SerializeField] BaseEnemy enemyPrefab;
     [SerializeField] Transform spawnPos;
+    [SerializeField] GameManager gameManager;
 
     [SerializeField] float tierUntilSpawning = 0;
 
@@ -18,13 +22,27 @@ public class EnemySpawner : MonoBehaviour
 
     bool spawnerActive = false;
 
+    Queue<BaseEnemy> loadedEnemies = new();
     private void Start()
     {
-        GameManager gameManager = FindFirstObjectByType<GameManager>();
+       if (gameManager == null)  gameManager = FindFirstObjectByType<GameManager>();
 
         if (gameManager != null)
         {
             gameManager.newWave.AddListener(OnWaveChanged);
+        }
+        StartCoroutine(InitEnemies());
+    }
+
+    IEnumerator InitEnemies()
+    {
+        for (int i = 0; i < NUMBEROFENEMIESTOLOAD; i++)
+        {
+            if (i % 5 == 0) { yield return null; }
+            BaseEnemy newEnemy = Instantiate(enemyPrefab);
+            newEnemy.SetGameManager(gameManager);
+            newEnemy.gameObject.SetActive(false);
+            loadedEnemies.Enqueue(newEnemy);
         }
     }
 
@@ -46,11 +64,13 @@ public class EnemySpawner : MonoBehaviour
     {
         float spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
         yield return new WaitForSeconds(spawnDelay);
-        BaseEnemy newEnemy = Instantiate(enemyPrefab);
+        BaseEnemy newEnemy = loadedEnemies.Dequeue();
+        newEnemy.gameObject.SetActive(true);
+        loadedEnemies.Enqueue (newEnemy);
         newEnemy.InitEnemy(currentTier);
         newEnemy.transform.position = spawnPos.position;
 
-        //StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemy());
 
     }
 

@@ -27,7 +27,6 @@ public class BaseTower : MonoBehaviour
     [SerializeField] Material builtMaterial;
     [SerializeField] Material constructingMaterial;
     [SerializeField] MeshRenderer mesh;
-    [SerializeField] GameObject groundObject;
 
 
 
@@ -36,7 +35,7 @@ public class BaseTower : MonoBehaviour
     float lockoutTracker = 0.0f;
 
     LayerMask groundMask;
-
+    LayerMask towerMask;
 
 
 
@@ -50,6 +49,7 @@ public class BaseTower : MonoBehaviour
     {
          InitTower();
         groundMask = LayerMask.GetMask("Ground");
+        towerMask = LayerMask.GetMask("Tower");
 
     }
     public void BeginPlacement(int cost)
@@ -65,11 +65,8 @@ public class BaseTower : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-
             switch (towerState)
         {
-
-
             case TowerState.Placing:
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, groundMask ))
@@ -99,35 +96,45 @@ public class BaseTower : MonoBehaviour
                 lockoutTracker -= Time.deltaTime;
                 break;
 
-
-
             case TowerState.Constructing:
                 placementTracker -= Time.deltaTime;
                 if (placementTracker <= 0.0f) OnTowerBuilt();
                 break;
 
-
-
-
             case TowerState.Built:
                 TowerLogic();
-                if (Physics.Raycast(ray, out RaycastHit mouseInfo, 1000.0f))
-                {
-                    Debug.Log("Hit obj " + mouseInfo.collider.gameObject);
-                   if (mouseInfo.collider.gameObject == gameObject && Input.GetMouseButtonDown(0))
-                    {
-                        gameManager.DisplayUpgradePanel(this);
-                    }
-                }
                 break;
         }
     }
 
+
+    public void OnTowerClicked()
+    {
+        if (towerState == TowerState.Built)
+        {
+            gameManager.DisplayUpgradePanel(this);
+        }
+        OnTowerHighlighted();
+    }
+    public virtual void OnTowerHighlighted()
+    {
+
+    }
+
+    public virtual void OnTowerUnhighlighted()
+    {
+
+    }
     public virtual void OnTowerBuilt()
     {
         placementTracker = 0.0f;
         towerState = TowerState.Built;
         mesh.material = builtMaterial;
+    }
+
+    public virtual void OnTowerUpgraded()
+    {
+
     }
 
     public virtual void InitTower()

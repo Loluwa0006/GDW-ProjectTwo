@@ -17,7 +17,8 @@ public class TowerPlacer : MonoBehaviour
     public enum TowerReference
     {
         CoinCreator,
-        LightingTurret
+        LightingTurret,
+        SpikeTower
     }
 
     [SerializeField]  List<TowerInfo> availableTowers = new();
@@ -44,6 +45,13 @@ public class TowerPlacer : MonoBehaviour
         if (towerDictionary[TowerReference.LightingTurret].cost > gameManager.GetCoins()) return;
         BaseTower newTower = Instantiate(towerDictionary[TowerReference.LightingTurret].tower);
         InitNewTower(newTower, towerDictionary[TowerReference.LightingTurret].cost);
+    }
+
+    public void CreateNewSpikeTower()
+    {
+        if (towerDictionary[TowerReference.SpikeTower].cost > gameManager.GetCoins()) return;
+        BaseTower newTower = Instantiate(towerDictionary[TowerReference.SpikeTower].tower);
+        InitNewTower(newTower, towerDictionary[TowerReference.SpikeTower].cost);
     }
 
     public void InitNewTower(BaseTower newTower, int cost)

@@ -27,29 +27,30 @@ public class BaseEnemy : MonoBehaviour
 
     int health = 0;
 
-    NavMeshAgent agent;
+  [SerializeField]  NavMeshAgent agent;
 
-    GameManager manager;
+   GameManager manager;
 
     GameObject target;
+
+
 
 
     [SerializeField] GameObject healthBarOver;
     [SerializeField] GameObject healthBarUnder;
 
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip spawnSFX;
+    [SerializeField] AudioClip hurtSFX;
     float originalHealthBarSize;
 
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        manager = FindFirstObjectByType<GameManager>();
-        enemyCollider = GetComponent<Collider>();
-        target = manager.townHall;
-
-        agent.SetDestination(target.transform.position);
+      
         currentTier = tiers[0];
         originalHealthBarSize = healthBarOver.transform.localScale.x;
+     
     }
 
 
@@ -61,13 +62,25 @@ public class BaseEnemy : MonoBehaviour
             if (attackTracker < 0.0f ) { attackTracker = 0.0f; }
         }
     }
-
+    public void SetGameManager(GameManager manager)
+    {
+        this.manager = manager;
+        target = manager.townHall;
+    }
     public void InitEnemy(int tier)
     {
         if (tiers.Count < tier) { return; }
         currentTier = tiers[tier];
         health = currentTier.maxHealth;
         agent.speed = currentTier.speed;
+        agent.SetDestination(manager.GetAreaNearTownHall());
+        transform.LookAt( agent.destination );
+
+        int rand = Random.Range(0, 10);
+        if (rand == 0)
+        {
+            audioSource.PlayOneShot(spawnSFX);
+        }
     }
 
 
@@ -85,10 +98,19 @@ public class BaseEnemy : MonoBehaviour
         health -= amount;
         if (health < 0)
         {
+            manager.AddCoins(1);
             health = 0;
             StartCoroutine(DestroyEnemy());
         }
-        float healthAsPercent = (float) health / currentTier.maxHealth;
+        else
+        {
+            int rand = Random.Range(0, 5);
+                if (rand == 0)
+            {
+                audioSource.PlayOneShot(hurtSFX);
+            }
+        }
+            float healthAsPercent = (float)health / currentTier.maxHealth;
         Vector3 newScale = healthBarOver.transform.localScale;
         newScale.x = originalHealthBarSize * healthAsPercent;
         healthBarOver.transform.localScale = newScale;
@@ -99,12 +121,10 @@ public class BaseEnemy : MonoBehaviour
 
     IEnumerator DestroyEnemy()
     {
-        yield return new WaitForFixedUpdate();
+        yield return null;
         enemyDefeated.Invoke(this);
         gameObject.SetActive(false);
         float waitDuration = Random.Range(0.7f, 1.3f);
-        yield return new WaitForSeconds(waitDuration);
-        Destroy(this.gameObject);
     }
 
 

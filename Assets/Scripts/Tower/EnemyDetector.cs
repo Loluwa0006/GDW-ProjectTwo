@@ -4,12 +4,14 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent (typeof(Rigidbody))]
 public class EnemyDetector : MonoBehaviour
 {
 
     public Dictionary<BaseEnemy, float> detectedEnemies = new();
 
     public SphereCollider detectorArea;
+    public MeshRenderer mesh;
 
 
     private void Start()
@@ -18,7 +20,7 @@ public class EnemyDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Object " + other.name + " entered");
+        Debug.Log("Entity " + other.name + " entered");
 
         BaseEnemy enemy = other.transform.parent.GetComponent<BaseEnemy>();
         if (enemy == null) { return; }

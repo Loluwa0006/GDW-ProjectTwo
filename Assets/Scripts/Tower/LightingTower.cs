@@ -26,16 +26,14 @@ public class LightingTower : BaseTower
 
     private void Awake()
     {
-
         int index = 1;
         foreach (var upgradeData in upgradeDataList)
         {
             upgradeDataDict[index] = upgradeData;
             index++;
         }
-        detector.detectorArea.enabled = false;
-
     }
+
 
     public override void InitTower()
     {
@@ -43,8 +41,9 @@ public class LightingTower : BaseTower
         gameManager = FindFirstObjectByType<GameManager>();
         currentData = upgradeDataDict[1];
 
-
-        detector.detectorArea.radius = attackRadius;
+        detector.detectorArea.enabled = false;
+        detector.transform.localScale = new Vector3(attackRadius, 0.1f, attackRadius);
+        detector.mesh.enabled = true;
 
     }
 
@@ -52,6 +51,20 @@ public class LightingTower : BaseTower
     {
         base.OnTowerBuilt();
         detector.detectorArea.enabled = true;
+        detector.mesh.enabled = false;
+        Debug.Log("Enabling detector area");
+    }
+
+    public override void OnTowerHighlighted()
+    {
+        base.OnTowerHighlighted();
+        detector.mesh.enabled = true;
+    }
+
+    public override void OnTowerUnhighlighted()
+    {
+        base.OnTowerUnhighlighted();
+        detector.mesh.enabled = false;
     }
 
     public override void TowerLogic()
@@ -69,7 +82,7 @@ public class LightingTower : BaseTower
             }
         }
 
-        }
+    }
 
 
     public override bool TowerUpgradable() 

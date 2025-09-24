@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using System.Collections;
 using System;
+using Unity.Mathematics;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -13,8 +16,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text coinTracker;
     [SerializeField] TMP_Text waveTracker;
     [SerializeField] TMP_Text waveDurationTracker;
+    [SerializeField] TMP_Text fpsTracker;
     [SerializeField] UpgradePanel upgradePanel;
     [SerializeField] LayerMask unallowedMask;
+    [SerializeField] LayerMask towerMask;
+    [SerializeField] TMP_Text winText;
+    [SerializeField] TMP_Text loseText;
+    [SerializeField] GameObject endScreen;
 
     [SerializeField] int coins = 20;
 
@@ -36,13 +44,22 @@ public class GameManager : MonoBehaviour
 
     WaveData currentWave = null;
 
+    float townRadius = 0;
+
+
+    bool gameOver = false;
 
     private void Start()
     {
+        townRadius = townHall.GetComponent<CapsuleCollider>().radius;
         currentWave = waveData[0];
         Debug.Log("Current Wave is " + currentWave.waveNumber + " will last for " + currentWave.waveDuration + " seconds ");
         InitUI();
         StartCoroutine(WaveLogic());
+        endScreen.gameObject.SetActive(false);
+
+        Time.timeScale = 7.0f;
+
     }
 
     public void InitUI()
@@ -99,6 +116,10 @@ public class GameManager : MonoBehaviour
 
     public void DisplayUpgradePanel(BaseTower tower)
     {
+        if (tower != selectedTower && selectedTower != null)
+        {
+            selectedTower.OnTowerUnhighlighted();
+        } 
         selectedTower = tower;
         upgradePanel.gameObject.SetActive(true);
         UpdateUpgradePanelDisplay(tower);
@@ -112,6 +133,7 @@ public class GameManager : MonoBehaviour
         coinTracker.text = "Coins: " + coins;
         UpdateUpgradePanelDisplay(selectedTower);
        selectedTower.towerValue = Mathf.FloorToInt((float)upgradeCost / 2);
+        selectedTower.OnTowerUpgraded();
 
     }
 
@@ -152,7 +174,7 @@ public class GameManager : MonoBehaviour
             timer -= Time.deltaTime;
         }
         waveDurationTracker.text = "00:00:000";
-        if (waveData.Count > currentWave.waveNumber)
+        if (waveData.Count > currentWave.waveNumber + 1)
         {
             currentWave = waveData[currentWave.waveNumber + 1];
             newWave.Invoke(currentWave);
@@ -160,6 +182,28 @@ public class GameManager : MonoBehaviour
             
             waveTracker.text = "Wave " + currentWave.waveNumber;
         }
+        else
+        {
+            OnGameOver(true);
+        }
+    }
+
+    public void OnGameOver(bool won)
+    {
+        if (gameOver) { return; }
+
+        gameOver = true;
+        endScreen.gameObject.SetActive(true);
+        loseText.gameObject.SetActive(!won);
+        winText.gameObject.SetActive(won);
+
+
+    }
+
+    public void ResetGame()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("SampleScene");
     }
 
     private void Update()
@@ -175,5 +219,26 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0.0f;
             }
         }
+       // fpsTracker.text = "FPS: " + Mathf.RoundToInt(1.0f / Time.unscaledDeltaTime);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit mouseInfo, 100.0f, towerMask))
+        {
+
+            BaseTower clickedTower = mouseInfo.collider.GetComponent<BaseTower>();
+            if (clickedTower != null && Input.GetMouseButtonDown(0))
+            {
+                clickedTower.OnTowerClicked();
+            }
+        }
+    }
+
+
+public Vector3 GetAreaNearTownHall()
+    {
+        Vector3 townPos = townHall.transform.position;
+        float x = UnityEngine.Random.Range(townPos.x - townRadius, townPos.x + townRadius);
+        float z = UnityEngine.Random.Range(townPos.y - townRadius, townPos.y + townRadius);
+        return new Vector3 (x,0, z);
+
     }
 }

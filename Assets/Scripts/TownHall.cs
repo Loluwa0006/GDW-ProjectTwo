@@ -6,6 +6,7 @@ public class TownHall : MonoBehaviour
 {
     [SerializeField] int maxHealth = 100;
     [SerializeField] TMP_Text healthDisplay;
+    [SerializeField] GameManager gameManager;
 
     int health = 0;
 
@@ -38,7 +39,13 @@ public class TownHall : MonoBehaviour
         foreach (var enemy in attackingEnemies)
         {
             health -= enemy.GetAttackDamage();
+            if (health <= 0)
+            {
+                health = 0;
+                gameManager.OnGameOver(false);
+            }
             healthDisplay.text = "Health: " + health;
+
         }
     }
 
