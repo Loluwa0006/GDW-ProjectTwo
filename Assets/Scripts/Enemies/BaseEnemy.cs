@@ -39,6 +39,7 @@ public class BaseEnemy : MonoBehaviour
     {
         Slow,
         Stun,
+        Weaken
     }
 
     [SerializeField] List<TierInfo> tiers = new ();
@@ -92,6 +93,9 @@ public class BaseEnemy : MonoBehaviour
                     if (agent.speed < 0.0f) agent.speed = 0.0f;
                     Debug.Log("Speed being reduced from " + currentTier.speed + " to new speed "  + agent.speed);
                     break;
+                case CrowdControl.Stun:
+                    agent.speed = 0.0f;
+                    break;
             }
             ccDictionary[ccSource].duration -= Time.deltaTime;
             if (ccDictionary[ccSource].duration < 0.0f)
@@ -144,7 +148,18 @@ public class BaseEnemy : MonoBehaviour
     public void Damage(int amount)
     {
         Debug.Log("Decreasing health of " + name + " from " + health + " to " + (health - amount));
-        health -= amount;
+        float bonusDMGAsPercent = 1.0f;
+        foreach (var ccSource in ccDictionary.Keys.ToList())
+        {
+            switch (ccDictionary[ccSource].cc)
+            {
+                case CrowdControl.Weaken:
+                    bonusDMGAsPercent += ccDictionary[ccSource].amount;
+                    Debug.Log("Dealing " + ccDictionary[ccSource].amount + "% extra damage");
+                    break;
+            }
+        }
+        health -= Mathf.RoundToInt(amount * bonusDMGAsPercent);
         if (health <= 0)
         {
             health = 0;

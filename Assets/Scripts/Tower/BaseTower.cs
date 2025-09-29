@@ -164,9 +164,12 @@ public class BaseTower : MonoBehaviour
         int newPower = 0;
         foreach (var conductor in conductorsPoweringTower)
         {
-            newPower += conductor.empowerValue;
+            newPower += conductor.powerConducted;
+            Debug.Log("Adding " + conductor.powerConducted + " to tower " + name + ", new power is now " + newPower);
         }
         empowerValue = newPower;
+
+        Debug.Log("New empower value is " + empowerValue);
     }
 
 }

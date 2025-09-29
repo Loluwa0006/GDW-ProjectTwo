@@ -56,8 +56,7 @@ public class Conductor : BaseTower
                 t.conductorsPoweringTower.Add(this);
             }
         }
-           
-
+         
         }
 
     public override void OnTowerSold(List<BaseTower> remainingTowers)

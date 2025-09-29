@@ -120,15 +120,4 @@ public class LightingTower : BaseTower
         return "Damage Per Second : " + (currentData.attackDamage/currentData.attackSpeed).ToString("#.00");
     }
 
-    public override void OnRegistryUpdated(List<BaseTower> newRegistry)
-    {
-        base.OnRegistryUpdated(newRegistry);
-        int newPower = 0;
-        foreach (var conductor in conductorsPoweringTower)
-        {
-            newPower += conductor.empowerValue;
-        }
-        empowerValue = newPower;
-    }
-
 }
