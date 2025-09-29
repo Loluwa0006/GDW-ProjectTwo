@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class TowerPlacer : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class TowerPlacer : MonoBehaviour
         public BaseTower tower;
         public TowerReference name;
         public int cost;
+        public Button creatorButton;
     }
 
     [System.Serializable]
@@ -18,7 +21,8 @@ public class TowerPlacer : MonoBehaviour
     {
         CoinCreator,
         LightingTurret,
-        SpikeTower
+        FlameTower,
+        Conductor
     }
 
     [SerializeField]  List<TowerInfo> availableTowers = new();
@@ -30,34 +34,36 @@ public class TowerPlacer : MonoBehaviour
         foreach (var tower in availableTowers)
         {
             towerDictionary[tower.name] = tower;
+            tower.creatorButton.onClick.AddListener( () => CreateNewTower(tower.name));
         }
     }
 
-    public void CreateNewCoinCreator()
+    private void Start()
     {
-        if (towerDictionary[TowerReference.CoinCreator].cost > gameManager.GetCoins()) return ;
-        BaseTower newTower = Instantiate(towerDictionary[TowerReference.CoinCreator].tower);
-        InitNewTower(newTower, towerDictionary[TowerReference.CoinCreator].cost);
+        if (gameManager == null)
+        {
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
+        gameManager.onCoinsUpdated.AddListener(OnCoinsUpdated);
+        OnCoinsUpdated(gameManager.GetCoins());
     }
-
-    public void CreateNewLightingTurret()
+    public void CreateNewTower(TowerReference reference)
     {
-        if (towerDictionary[TowerReference.LightingTurret].cost > gameManager.GetCoins()) return;
-        BaseTower newTower = Instantiate(towerDictionary[TowerReference.LightingTurret].tower);
-        InitNewTower(newTower, towerDictionary[TowerReference.LightingTurret].cost);
-    }
-
-    public void CreateNewSpikeTower()
-    {
-        if (towerDictionary[TowerReference.SpikeTower].cost > gameManager.GetCoins()) return;
-        BaseTower newTower = Instantiate(towerDictionary[TowerReference.SpikeTower].tower);
-        InitNewTower(newTower, towerDictionary[TowerReference.SpikeTower].cost);
-    }
-
-    public void InitNewTower(BaseTower newTower, int cost)
-    {
+        int cost = towerDictionary[reference].cost;
+        if (cost > gameManager.GetCoins()) return;
+        BaseTower newTower = Instantiate(towerDictionary[reference].tower);
         newTower.gameManager = gameManager;
         newTower.BeginPlacement(cost);
     }
+
+
+    public void OnCoinsUpdated(int newAmount)
+    {
+        foreach (var info in availableTowers)
+        {
+            info.creatorButton.interactable = (newAmount >= info.cost);
+        }
+    }
+
 
 }

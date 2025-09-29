@@ -6,6 +6,9 @@ using UnityEngine;
 public class LightingTower : BaseTower 
 {
 
+    const float SLOW_SCALER = 0.1f; // slows by 10% for each power value
+    const float DURATION_SCALER = 0.5f;
+
     [System.Serializable]
     class UpgradeData
     {
@@ -19,10 +22,15 @@ public class LightingTower : BaseTower
 
     [SerializeField] int attackRadius = 10;
 
+    [HideInInspector] public bool empowered = false;
+
     Dictionary<int, UpgradeData> upgradeDataDict = new();
 
 
     UpgradeData currentData;
+
+    
+    
 
     private void Awake()
     {
@@ -69,7 +77,6 @@ public class LightingTower : BaseTower
 
     public override void TowerLogic()
     {
-      
         foreach (var enemy in detector.detectedEnemies.Keys.ToList())
         {
             Debug.Log("looking at enemy " + enemy.name);
@@ -77,14 +84,20 @@ public class LightingTower : BaseTower
             if (detector.detectedEnemies[enemy] >= currentData.attackSpeed)
             {
                 enemy.Damage(currentData.attackDamage);
+                enemy.ApplyCC(
+                    BaseEnemy.CrowdControl.Slow,
+                    empowerValue * SLOW_SCALER,
+                    empowerValue * DURATION_SCALER,
+                    false,
+                    "EmpoweredLightingTowerSlow"
+                    );
                 detector.detectedEnemies[enemy] = 0;
                 Debug.Log("Hitting enemy " + enemy.name);
+
             }
         }
 
     }
-
-
     public override bool TowerUpgradable() 
     {
         if (currentTier == maxTier) { return false; }
@@ -107,5 +120,15 @@ public class LightingTower : BaseTower
         return "Damage Per Second : " + (currentData.attackDamage/currentData.attackSpeed).ToString("#.00");
     }
 
+    public override void OnRegistryUpdated(List<BaseTower> newRegistry)
+    {
+        base.OnRegistryUpdated(newRegistry);
+        int newPower = 0;
+        foreach (var conductor in conductorsPoweringTower)
+        {
+            newPower += conductor.empowerValue;
+        }
+        empowerValue = newPower;
+    }
 
 }

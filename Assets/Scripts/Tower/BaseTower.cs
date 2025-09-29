@@ -1,5 +1,6 @@
+
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class BaseTower : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class BaseTower : MonoBehaviour
         Constructing,
         Built
     }
+    [HideInInspector] public int towerValue = 0;
+    [HideInInspector] public int empowerValue = 0;
+    [HideInInspector] public HashSet<Conductor> conductorsPoweringTower = new();
 
     public GameManager gameManager;
 
@@ -17,16 +21,12 @@ public class BaseTower : MonoBehaviour
     public int currentTier = 1;
     public int maxTier = 3;
 
-
-
     [SerializeField] float placementDuration = 2.0f;
     [SerializeField] float placementLockout = 0.4f; //must wait this long before you're able to press
 
-    [SerializeField] Material placingMaterialUnallowed;
-    [SerializeField] Material placingMaterialAllowed;
-    [SerializeField] Material builtMaterial;
-    [SerializeField] Material constructingMaterial;
+    [SerializeField] BuildingMaterials buildingMaterials;
     [SerializeField] MeshRenderer mesh;
+
 
 
 
@@ -35,22 +35,14 @@ public class BaseTower : MonoBehaviour
     float lockoutTracker = 0.0f;
 
     LayerMask groundMask;
-    LayerMask towerMask;
-
-
-
-
-   [HideInInspector] public int towerValue = 0;
 
     int cost = 0;
-    
+
 
     private void Start()
     {
-         InitTower();
+        InitTower();
         groundMask = LayerMask.GetMask("Ground");
-        towerMask = LayerMask.GetMask("Tower");
-
     }
     public void BeginPlacement(int cost)
     {
@@ -60,7 +52,7 @@ public class BaseTower : MonoBehaviour
         towerValue =Mathf.FloorToInt((float) cost / 2);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -70,16 +62,12 @@ public class BaseTower : MonoBehaviour
             case TowerState.Placing:
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, groundMask ))
-                {
-                    Debug.Log("Ray hitting " + hitInfo.collider.gameObject.name +", layer mask is  " + LayerMask.LayerToName(hitInfo.collider.gameObject.layer));
-                    
+                {                    
                     transform.position = Vector3Int.RoundToInt(hitInfo.point);
                 }
-                Debug.Log("Transform position is " + transform.position);
-                Debug.Log("Hit info point is " + hitInfo.point);
                 bool areaAllowed = gameManager.AreaClear(transform.position, unallowedRange);
 
-                mesh.material = areaAllowed ? placingMaterialAllowed : placingMaterialUnallowed;
+                mesh.material = areaAllowed ?buildingMaterials. placingMaterialAllowed : buildingMaterials.placingMaterialUnallowed;
 
                 if (Input.GetMouseButtonDown(0) && lockoutTracker <= 0.0f && areaAllowed)
                 {
@@ -87,7 +75,7 @@ public class BaseTower : MonoBehaviour
                     towerState = TowerState.Constructing;
                     placementTracker = placementDuration;
                     lockoutTracker = 0.0f;
-                    mesh.material = constructingMaterial;
+                    mesh.material = buildingMaterials.constructingMaterial;
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
@@ -108,7 +96,7 @@ public class BaseTower : MonoBehaviour
     }
 
 
-    public void OnTowerClicked()
+    public virtual void OnTowerClicked()
     {
         if (towerState == TowerState.Built)
         {
@@ -129,7 +117,7 @@ public class BaseTower : MonoBehaviour
     {
         placementTracker = 0.0f;
         towerState = TowerState.Built;
-        mesh.material = builtMaterial;
+        mesh.material = buildingMaterials. builtMaterial;
     }
 
     public virtual void OnTowerUpgraded()
@@ -137,6 +125,10 @@ public class BaseTower : MonoBehaviour
 
     }
 
+    public virtual void OnTowerSold(List<BaseTower> remainingTowers)
+    {
+
+    }
     public virtual void InitTower()
     {
 
@@ -167,5 +159,14 @@ public class BaseTower : MonoBehaviour
     {
         return string.Empty;
     }
-   
+    public virtual void OnRegistryUpdated(List<BaseTower> newRegistry)
+    {
+        int newPower = 0;
+        foreach (var conductor in conductorsPoweringTower)
+        {
+            newPower += conductor.empowerValue;
+        }
+        empowerValue = newPower;
+    }
+
 }

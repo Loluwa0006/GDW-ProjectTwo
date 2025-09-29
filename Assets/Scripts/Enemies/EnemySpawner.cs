@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    const int NUMBEROFENEMIESTOLOAD = 200;
+    const int NUMBER_OF_ENEMIES_TO_LOAD = 200;
     [SerializeField] float minSpawnDelay = 2.4f;
     [SerializeField] float maxSpawnDelay = 4.0f;
     [SerializeField] BaseEnemy enemyPrefab;
@@ -13,10 +13,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameManager gameManager;
 
     [SerializeField] float tierUntilSpawning = 0;
-
-
-    [SerializeField] float timeUntilTierUpgrade = 30.0f;
-
 
     int currentTier = 1;
 
@@ -36,10 +32,10 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator InitEnemies()
     {
-        for (int i = 0; i < NUMBEROFENEMIESTOLOAD; i++)
+        for (int i = 0; i < NUMBER_OF_ENEMIES_TO_LOAD; i++)
         {
             if (i % 5 == 0) { yield return null; }
-            BaseEnemy newEnemy = Instantiate(enemyPrefab);
+            BaseEnemy newEnemy = Instantiate(enemyPrefab, transform);
             newEnemy.SetGameManager(gameManager);
             newEnemy.gameObject.SetActive(false);
             loadedEnemies.Enqueue(newEnemy);

@@ -95,6 +95,7 @@ public class SpikeTower : BaseTower
     {
         base.UpgradeTower();
         currentData = upgradeDataDict[currentTier];
+        detector.transform.localScale = new Vector3(currentData.attackRadius, 0.1f, currentData.attackRadius);
     }
 
     public override int GetNextUpgradeCost()

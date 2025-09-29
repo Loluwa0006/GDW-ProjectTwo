@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.14, y: 0.86, z: 1.039}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -130,9 +130,6 @@ MonoBehaviour:
   maxTier: 3
   placementDuration: 2
   placementLockout: 0.4
-  placingMaterialUnallowed: {fileID: 2100000, guid: 94077849a3a1a0a459b43eeabaf33c3e, type: 2}
-  placingMaterialAllowed: {fileID: 2100000, guid: d797fe2d0890c5d45b9684f2cad128d4, type: 2}
-  builtMaterial: {fileID: 2100000, guid: 057d5825c0ffc0c4e8b92bd4b5a5084b, type: 2}
-  constructingMaterial: {fileID: 2100000, guid: dec9a727fc8f32d4582fd8098e5d4069, type: 2}
+  buildingMaterials: {fileID: 11400000, guid: 6d592010e6452b843a85f79938861d3b, type: 2}
   mesh: {fileID: 5945484177345331770}
   towerValue: 0
