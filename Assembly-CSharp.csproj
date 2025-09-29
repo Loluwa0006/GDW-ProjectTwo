@@ -68,9 +68,9 @@
     <Compile Include="Assets\Scripts\Enemies\BaseEnemy.cs" />
     <Compile Include="Assets\Resources\BuildingMaterials.cs" />
     <Compile Include="Assets\Scripts\Tower\EnemyDetector.cs" />
-    <Compile Include="Assets\Scripts\Tower\SpikeTower.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\UpgradePanel.cs" />
+    <Compile Include="Assets\Scripts\Tower\FlameTower.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Tower\TowerPlacer.cs" />

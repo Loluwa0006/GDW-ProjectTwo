@@ -169,7 +169,7 @@ public class BaseEnemy : MonoBehaviour
         else
         {
             int rand = Random.Range(0, 5);
-                if (rand == 0)
+            if (rand == 0)
             {
                 audioSource.PlayOneShot(hurtSFX);
             }

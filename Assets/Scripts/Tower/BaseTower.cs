@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BaseTower : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class BaseTower : MonoBehaviour
     [SerializeField] BuildingMaterials buildingMaterials;
     [SerializeField] MeshRenderer mesh;
 
+    [SerializeField] GameObject towerGameObject;
+    [SerializeField] Material defaultMaterial;
+    List<MeshRenderer> towerMeshes = new();
+
 
 
 
@@ -43,6 +48,7 @@ public class BaseTower : MonoBehaviour
     {
         InitTower();
         groundMask = LayerMask.GetMask("Ground");
+        towerMeshes = towerGameObject.GetComponentsInChildren<MeshRenderer>().ToList();
     }
     public void BeginPlacement(int cost)
     {
@@ -67,7 +73,10 @@ public class BaseTower : MonoBehaviour
                 }
                 bool areaAllowed = gameManager.AreaClear(transform.position, unallowedRange);
 
-                mesh.material = areaAllowed ?buildingMaterials. placingMaterialAllowed : buildingMaterials.placingMaterialUnallowed;
+                foreach (var mesh in towerMeshes)
+                {
+                    mesh.material = areaAllowed ? buildingMaterials.placingMaterialAllowed : buildingMaterials.placingMaterialUnallowed;
+                }
 
                 if (Input.GetMouseButtonDown(0) && lockoutTracker <= 0.0f && areaAllowed)
                 {
@@ -75,7 +84,10 @@ public class BaseTower : MonoBehaviour
                     towerState = TowerState.Constructing;
                     placementTracker = placementDuration;
                     lockoutTracker = 0.0f;
-                    mesh.material = buildingMaterials.constructingMaterial;
+                    foreach (var mesh in towerMeshes)
+                    {
+                        mesh.material = buildingMaterials.constructingMaterial;
+                    }
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
@@ -117,7 +129,10 @@ public class BaseTower : MonoBehaviour
     {
         placementTracker = 0.0f;
         towerState = TowerState.Built;
-        mesh.material = buildingMaterials. builtMaterial;
+        foreach (var mesh in towerMeshes)
+        {
+            mesh.material = defaultMaterial;
+        }
     }
 
     public virtual void OnTowerUpgraded()

@@ -263,6 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b388a769da4234bbfc6eea249c7635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpikeTower
+  towerValue: 0
+  empowerValue: 0
   gameManager: {fileID: 0}
   unallowedRange: 5
   currentTier: 1
@@ -271,20 +273,21 @@ MonoBehaviour:
   placementLockout: 0.4
   buildingMaterials: {fileID: 11400000, guid: 6d592010e6452b843a85f79938861d3b, type: 2}
   mesh: {fileID: 6558591530345256283}
-  towerValue: 0
+  towerGameObject: {fileID: 8961331977745538964}
+  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   upgradeDataList:
   - attackSpeed: 3.5
     upgradeCost: 15
     attackDamage: 10
-    attackRadius: 5
+    attackRadius: 10
   - attackSpeed: 3.2
     upgradeCost: 30
     attackDamage: 15
-    attackRadius: 6
+    attackRadius: 12
   - attackSpeed: 2.6
     upgradeCost: 50
     attackDamage: 25
-    attackRadius: 7
+    attackRadius: 15
   detector: {fileID: 2472352722782483946}
 --- !u!23 &6558591530345256283 stripped
 MeshRenderer:
@@ -351,5 +354,10 @@ PrefabInstance:
 --- !u!4 &8581287314317067566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa78d3fe884b7b44a91f7836276a4639, type: 3}
+  m_PrefabInstance: {fileID: 8114468542819214021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8961331977745538964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fa78d3fe884b7b44a91f7836276a4639, type: 3}
   m_PrefabInstance: {fileID: 8114468542819214021}
   m_PrefabAsset: {fileID: 0}

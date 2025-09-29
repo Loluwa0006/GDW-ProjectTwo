@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
-public class SpikeTower : BaseTower
+public class FlameTower : BaseTower
 {
+
+
+    const float STUN_SCALER = 0.1f; // stuns for 0.1 sec for each power value
+
 
     [System.Serializable]
     class UpgradeData
@@ -13,7 +16,6 @@ public class SpikeTower : BaseTower
         public int upgradeCost = 15;
         public int attackDamage = 1;
         public int attackRadius = 2;
-
     }
 
     [SerializeField] List<UpgradeData> upgradeDataList = new();
@@ -108,10 +110,7 @@ public class SpikeTower : BaseTower
         return "Damage Per Second : " + (currentData.attackDamage / currentData.attackSpeed).ToString("#.00");
     }
 
-    public override void OnTowerUpgraded()
-    {
-        detector.detectorArea.radius = currentData.attackRadius;
-    }
+   
 
 
 }
