@@ -255,10 +255,7 @@ MonoBehaviour:
   maxTier: 3
   placementDuration: 2
   placementLockout: 0.4
-  placingMaterialUnallowed: {fileID: 2100000, guid: 94077849a3a1a0a459b43eeabaf33c3e, type: 2}
-  placingMaterialAllowed: {fileID: 2100000, guid: d797fe2d0890c5d45b9684f2cad128d4, type: 2}
-  builtMaterial: {fileID: 2100000, guid: 057d5825c0ffc0c4e8b92bd4b5a5084b, type: 2}
-  constructingMaterial: {fileID: 2100000, guid: dec9a727fc8f32d4582fd8098e5d4069, type: 2}
+  buildingMaterials: {fileID: 11400000, guid: 6d592010e6452b843a85f79938861d3b, type: 2}
   mesh: {fileID: 3590203280442948465}
   towerValue: 0
   upgradeDataList:

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6938283376068650879
+--- !u!1001 &6769375543048372901
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,59 +8,67 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5605441889849422094}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.5272014
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.47
+      value: 9.580303
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.9760809
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
+    - target: {fileID: 919132149155446097, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_Name
-      value: Mining TowerZeroPointThree
+      value: Mining TowerFixed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
---- !u!4 &7476822577477615764 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+--- !u!4 &6519838204498077006 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 50f0d31385ed01442a1e0bd583539633, type: 3}
-  m_PrefabInstance: {fileID: 6938283376068650879}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+  m_PrefabInstance: {fileID: 6769375543048372901}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7281407920983180458
 PrefabInstance:
@@ -124,7 +132,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2938113184491025828, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7476822577477615764}
+      addedObject: {fileID: 6519838204498077006}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5981812896460957575, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
       insertIndex: -1
@@ -147,18 +155,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e33b68ddeba8a48b4117b115174e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerValue: 0
+  empowerValue: 0
   gameManager: {fileID: 0}
   unallowedRange: 5
   currentTier: 1
   maxTier: 3
   placementDuration: 2
   placementLockout: 0.4
-  placingMaterialUnallowed: {fileID: 2100000, guid: 94077849a3a1a0a459b43eeabaf33c3e, type: 2}
-  placingMaterialAllowed: {fileID: 2100000, guid: d797fe2d0890c5d45b9684f2cad128d4, type: 2}
-  builtMaterial: {fileID: 2100000, guid: 057d5825c0ffc0c4e8b92bd4b5a5084b, type: 2}
-  constructingMaterial: {fileID: 2100000, guid: dec9a727fc8f32d4582fd8098e5d4069, type: 2}
+  buildingMaterials: {fileID: 11400000, guid: 6d592010e6452b843a85f79938861d3b, type: 2}
   mesh: {fileID: 4003237961032582800}
-  towerValue: 0
+  towerGameObject: {fileID: 0}
+  defaultMaterial: {fileID: 0}
   upgradeDataList:
   - mineSpeed: 80
     upgradeCost: 25

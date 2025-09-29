@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public  GameObject townHall;
     public UnityEvent<WaveData> newWave = new();
+    public UnityEvent<List<BaseTower>> onRegistryUpdated = new();
+    public UnityEvent<int> onCoinsUpdated = new();
     [SerializeField] TMP_Text coinTracker;
     [SerializeField] TMP_Text waveTracker;
     [SerializeField] TMP_Text waveDurationTracker;
@@ -24,11 +26,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text loseText;
     [SerializeField] GameObject endScreen;
 
+
     [SerializeField] int coins = 20;
 
 
 
-
+    List<Conductor> conductorList = new();
     List<BaseTower> towerList = new();
     BaseTower selectedTower = null;
 
@@ -56,7 +59,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Current Wave is " + currentWave.waveNumber + " will last for " + currentWave.waveDuration + " seconds ");
         InitUI();
         StartCoroutine(WaveLogic());
-        endScreen.gameObject.SetActive(false);
+        endScreen.SetActive(false);
+        Time.timeScale = 1.0f;
 
     }
 
@@ -73,11 +77,22 @@ public class GameManager : MonoBehaviour
 
     public void AddCoins(int amount)
     {
+        if (amount == 0) { return; }
         coins += amount;
         coinTracker.text = "Coins: " + coins;
         UpdateUpgradePanelDisplay(selectedTower);
+        onCoinsUpdated.Invoke(coins);
     }
 
+
+    public void SpendCoins(int amount)
+    {
+        if (amount == 0) { return; }
+        coins -= amount;
+        coinTracker.text = "Coins: " + coins;
+        UpdateUpgradePanelDisplay(selectedTower);
+        onCoinsUpdated.Invoke(coins);
+    }
     public int GetCoins()
     {
         return coins;
@@ -87,8 +102,19 @@ public class GameManager : MonoBehaviour
     {
         if (towerList.Contains(tower)) return; 
         towerList.Add(tower);
+        if (tower is Conductor conductor)
+        {
+            conductorList.Add(conductor);
+        }
         coins -= cost;
         coinTracker.text = "Coins: " + coins;
+        onRegistryUpdated.AddListener(tower.OnRegistryUpdated);
+        foreach (var conduct in conductorList)
+        {
+            conduct.UpdateConductorPower();
+        }
+        onRegistryUpdated.Invoke(towerList);
+     
     }
 
     public void RemoveTowerFromRegistry(BaseTower tower)
@@ -96,14 +122,36 @@ public class GameManager : MonoBehaviour
         if (towerList.Contains(tower))
         {
             towerList.Remove(tower);
+            foreach (var conduct in conductorList)
+            {
+                conduct.UpdateConductorPower();
+            }
+            onRegistryUpdated.Invoke(towerList);
         }
+     
+    }
+
+    public List<BaseTower> GetNearbyTowers(BaseTower target, int searchSize)
+    {
+        List<BaseTower> nearbyTowers = new();
+        foreach (BaseTower tower in towerList)
+        {
+            if (tower == target) continue;
+            if (Vector3.Distance(target.transform.position, tower.transform.position) <= searchSize)
+            {
+                nearbyTowers.Add(tower);
+            }
+        }
+        return nearbyTowers;
     }
 
     public bool AreaClear(Vector3 pos, int size)
     {
         foreach (BaseTower tower in towerList)
         {
-            if (Vector3.Distance(tower.transform.position, pos) <= size)
+            int towerSize = size;
+            if (tower is Conductor) towerSize = 1; //can place any tower right next to a conductor; 
+            if (Vector3.Distance(tower.transform.position, pos) <= towerSize - 0.001f)
             {
                 return false;
             }
@@ -141,7 +189,7 @@ public class GameManager : MonoBehaviour
         coinTracker.text = "Coins: " + coins;
         upgradePanel.gameObject.SetActive(false);
         RemoveTowerFromRegistry(selectedTower);
-
+        selectedTower.OnTowerSold(towerList);
         Destroy(selectedTower.gameObject);
         selectedTower = null;
     }
@@ -194,8 +242,6 @@ public class GameManager : MonoBehaviour
         endScreen.SetActive(true);
         loseText.gameObject.SetActive(!won);
         winText.gameObject.SetActive(won);
-
-
     }
 
     public void ResetGame()
@@ -237,6 +283,5 @@ public Vector3 GetAreaNearTownHall()
         float x = UnityEngine.Random.Range(townPos.x - townRadius, townPos.x + townRadius);
         float z = UnityEngine.Random.Range(townPos.y - townRadius, townPos.y + townRadius);
         return new Vector3 (x,0, z);
-
     }
 }
