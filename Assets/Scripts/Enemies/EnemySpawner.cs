@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    const int NUMBER_OF_ENEMIES_TO_LOAD = 200;
+    const int NUMBER_OF_ENEMIES_TO_LOAD = 150;
     [SerializeField] float minSpawnDelay = 2.4f;
     [SerializeField] float maxSpawnDelay = 4.0f;
     [SerializeField] BaseEnemy enemyPrefab;
