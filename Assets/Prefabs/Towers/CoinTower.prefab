@@ -10,23 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5272014
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.580303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.9760809
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56,15 +60,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
       propertyPath: m_Name
       value: Mining TowerFixed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 65702495048144492, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+    - {fileID: -8700617353114198275, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+--- !u!1 &5850403382632693748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
+  m_PrefabInstance: {fileID: 6769375543048372901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6519838204498077006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2516c74efbb6ef246a303cb0801e5520, type: 3}
@@ -165,8 +180,8 @@ MonoBehaviour:
   placementLockout: 0.4
   buildingMaterials: {fileID: 11400000, guid: 6d592010e6452b843a85f79938861d3b, type: 2}
   mesh: {fileID: 4003237961032582800}
-  towerGameObject: {fileID: 0}
-  defaultMaterial: {fileID: 0}
+  towerGameObject: {fileID: 5850403382632693748}
+  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   upgradeDataList:
   - mineSpeed: 80
     upgradeCost: 25

@@ -25,7 +25,7 @@ public class BaseTower : MonoBehaviour
     [SerializeField] float placementDuration = 2.0f;
     [SerializeField] float placementLockout = 0.4f; //must wait this long before you're able to press
 
-    [SerializeField] BuildingMaterials buildingMaterials;
+    [SerializeField] protected BuildingMaterials buildingMaterials;
     [SerializeField] MeshRenderer mesh;
 
     [SerializeField] GameObject towerGameObject;

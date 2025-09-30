@@ -6,7 +6,7 @@ public class FlameTower : BaseTower
 {
 
 
-    const float STUN_SCALER = 0.1f; // stuns for 0.1 sec for each power value
+    const float STUN_SCALER = 0.2f; // stuns for 0.1 sec for each power value
 
 
     [System.Serializable]

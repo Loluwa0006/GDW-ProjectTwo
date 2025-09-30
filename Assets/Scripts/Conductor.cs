@@ -11,9 +11,12 @@ public class Conductor : BaseTower
 
     [HideInInspector] BaseTower powerSource;
 
+    [SerializeField] MeshRenderer conductorMesh;
+
     public override void OnTowerBuilt()
     {
         base.OnTowerBuilt();
+        conductorMesh.material = buildingMaterials.builtMaterial;
         
     }
     public override void OnTowerClicked()

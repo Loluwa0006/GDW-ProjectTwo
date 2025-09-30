@@ -278,15 +278,15 @@ MonoBehaviour:
   upgradeDataList:
   - attackSpeed: 3.5
     upgradeCost: 15
-    attackDamage: 10
+    attackDamage: 8
     attackRadius: 10
   - attackSpeed: 3.2
     upgradeCost: 30
-    attackDamage: 15
+    attackDamage: 12
     attackRadius: 12
   - attackSpeed: 2.6
     upgradeCost: 50
-    attackDamage: 25
+    attackDamage: 15
     attackRadius: 15
   detector: {fileID: 2472352722782483946}
 --- !u!23 &6558591530345256283 stripped

@@ -98,6 +98,7 @@ public class BaseEnemy : MonoBehaviour
                     break;
                 case CrowdControl.Stun:
                     effectiveSpeed = 0.0f;
+                    Debug.Log("Enemy being stunned for " + ccDictionary[ccSource].duration + " seconds");
                     break;
             }
             ccDictionary[ccSource].duration -= Time.deltaTime;

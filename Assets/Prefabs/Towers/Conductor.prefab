@@ -82,6 +82,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e5a62083086c34a9d553cfb18428f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Conductor
+  towerValue: 0
+  empowerValue: 0
   gameManager: {fileID: 0}
   unallowedRange: 1
   currentTier: 1
@@ -90,7 +92,10 @@ MonoBehaviour:
   placementLockout: 0.4
   buildingMaterials: {fileID: 11400000, guid: 6d592010e6452b843a85f79938861d3b, type: 2}
   mesh: {fileID: 8021488759171133720}
-  towerValue: 0
+  towerGameObject: {fileID: 7985793633965511845}
+  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  powerConducted: 0
+  conductorMesh: {fileID: 8021488759171133720}
 --- !u!23 &8021488759171133720 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5945484177345331770, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}
