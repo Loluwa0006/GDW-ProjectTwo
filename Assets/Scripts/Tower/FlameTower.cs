@@ -80,6 +80,16 @@ public class FlameTower : BaseTower
             foreach (var enemy in detector.detectedEnemies.Keys.ToList())
             {
                 enemy.Damage(currentData.attackDamage);
+                if (empowerValue > 0)
+                {
+                    enemy.ApplyCC(
+                        BaseEnemy.CrowdControl.Stun,
+                        empowerValue * STUN_SCALER,
+                        empowerValue * STUN_SCALER,
+                        false,
+                        "EmpoweredFlameTowerStun"
+                        );
+                }
                 Debug.Log("Hitting enemy " + enemy.name);
                 reloadDuration = currentData.attackSpeed;
             }

@@ -75,7 +75,7 @@ public class BaseEnemy : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (!CheckIfStunned())
+        if (!EnemyStunned())
         {
             if (attackTracker > 0.0f)
             {
@@ -84,17 +84,20 @@ public class BaseEnemy : MonoBehaviour
             }
         }
 
+        var effectiveSpeed = currentTier.speed;
+
         foreach (var ccSource in ccDictionary.Keys.ToList())
         {
             switch (ccDictionary[ccSource].cc)
             {
                 case CrowdControl.Slow:
-                    agent.speed = currentTier.speed * ( 1 - ccDictionary[ccSource].amount);
-                    if (agent.speed < 0.0f) agent.speed = 0.0f;
-                    Debug.Log("Speed being reduced from " + currentTier.speed + " to new speed "  + agent.speed);
+                    float speedBefore = effectiveSpeed;
+                    effectiveSpeed *= ( 1 - ccDictionary[ccSource].amount);
+                    if (effectiveSpeed < 0.0f) effectiveSpeed = 0.0f;
+                    Debug.Log("Speed being reduced from " + speedBefore + " to new speed "  + effectiveSpeed);
                     break;
                 case CrowdControl.Stun:
-                    agent.speed = 0.0f;
+                    effectiveSpeed = 0.0f;
                     break;
             }
             ccDictionary[ccSource].duration -= Time.deltaTime;
@@ -103,9 +106,10 @@ public class BaseEnemy : MonoBehaviour
                 ccDictionary.Remove(ccSource);
             }
         }
+        agent.speed = effectiveSpeed;
     }
 
-    public bool CheckIfStunned()
+    public bool EnemyStunned()
     {
         foreach (var ccSource in ccDictionary.Keys.ToList())
         {
@@ -144,6 +148,10 @@ public class BaseEnemy : MonoBehaviour
         return currentTier.damage;
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
 
     public void Damage(int amount)
     {

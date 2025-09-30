@@ -84,13 +84,16 @@ public class LightingTower : BaseTower
             if (detector.detectedEnemies[enemy] >= currentData.attackSpeed)
             {
                 enemy.Damage(currentData.attackDamage);
-                enemy.ApplyCC(
-                    BaseEnemy.CrowdControl.Slow,
-                    empowerValue * SLOW_SCALER,
-                    empowerValue * DURATION_SCALER,
-                    false,
-                    "EmpoweredLightingTowerSlow"
-                    );
+                if (empowerValue > 0)
+                {
+                    enemy.ApplyCC(
+                        BaseEnemy.CrowdControl.Slow,
+                        empowerValue * SLOW_SCALER,
+                        empowerValue * DURATION_SCALER,
+                        false,
+                        "EmpoweredLightingTowerSlow"
+                        );
+                }
                 detector.detectedEnemies[enemy] = 0;
                 Debug.Log("Hitting enemy " + enemy.name);
 

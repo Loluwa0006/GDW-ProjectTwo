@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\TownHall.cs" />
+    <Compile Include="Assets\Scripts\Tower\PoisonTower.cs" />
     <Compile Include="Assets\Scripts\Conductor.cs" />
     <Compile Include="Assets\Scripts\Tower\LightingTower.cs" />
     <Compile Include="Assets\Scripts\Tower\BaseTower.cs" />
