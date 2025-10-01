@@ -54,6 +54,8 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] AudioClip spawnSFX;
     [SerializeField] AudioClip hurtSFX;
 
+    [SerializeField] ParticleSystem deathParticles;
+
 
     Dictionary<string, CCInfo> ccDictionary = new();
     TierInfo currentTier;
@@ -70,6 +72,11 @@ public class BaseEnemy : MonoBehaviour
     {
         currentTier = tiers[0];
         originalHealthBarSize = healthBarOver.transform.localScale.x;
+    }
+
+    private void Start()
+    {
+        deathParticles.Stop();
     }
 
 
@@ -194,6 +201,7 @@ public class BaseEnemy : MonoBehaviour
 
     void DestroyEnemy()
     {
+        deathParticles.Play();
         manager.AddCoins(1);
         enemyDefeated.Invoke(this);
         gameObject.SetActive(false);

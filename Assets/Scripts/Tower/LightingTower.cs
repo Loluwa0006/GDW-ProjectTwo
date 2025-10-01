@@ -26,6 +26,11 @@ public class LightingTower : BaseTower
     [SerializeField] int attackRadius = 10;
     [SerializeField] ParticleSystem lightingParticles;
 
+    [SerializeField] AudioSource audioSource;
+
+    [Header("Tower SFX")]
+    [SerializeField] AudioClip lightingBlast;
+
 
     Dictionary<int, UpgradeData> upgradeDataDict = new();
 
@@ -128,7 +133,9 @@ public class LightingTower : BaseTower
             lightingTrails.SetPosition(index, transform.position);
             lightingTrails.SetPosition(index + 1, enemy.transform.position);
             index += 2;
+
         }
+        audioSource.PlayOneShot(lightingBlast, 0.2f);
         yield return new WaitForSeconds(0.1f);
         lightingTrails.enabled = false;
     }

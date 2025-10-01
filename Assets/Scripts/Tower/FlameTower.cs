@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class FlameTower : BaseTower
 {
@@ -20,6 +21,12 @@ public class FlameTower : BaseTower
 
     [SerializeField] List<UpgradeData> upgradeDataList = new();
     [SerializeField] EnemyDetector detector;
+    [SerializeField] ParticleSystem flameParticles;
+    [SerializeField] Light flameLight;
+    [SerializeField] AudioSource audioSource;
+    [Header("Tower SFX")]
+    [SerializeField] AudioClip fireSFX;
+    [SerializeField] AudioClip blastSFX;
 
 
     Dictionary<int, UpgradeData> upgradeDataDict = new();
@@ -50,6 +57,21 @@ public class FlameTower : BaseTower
     {
         base.OnTowerUnhighlighted();
         detector.mesh.enabled = false;
+    }
+
+    public override void OnTowerEmpowered()
+    {
+        base.OnTowerEmpowered();
+        flameParticles.Play();
+        flameLight.enabled = true;
+        audioSource.PlayOneShot(fireSFX);
+    }
+
+    public override void OnTowerDepowered()
+    {
+        base.OnTowerDepowered();
+        flameParticles.Stop();
+        flameLight.enabled = false;
     }
     public override void InitTower()
     {
@@ -91,7 +113,12 @@ public class FlameTower : BaseTower
                         );
                 }
                 Debug.Log("Hitting enemy " + enemy.name);
+            }
+
+            if (detector.detectedEnemies.Keys.Count > 0)
+            {
                 reloadDuration = currentData.attackSpeed;
+                audioSource.PlayOneShot(blastSFX, 0.2f);
             }
         }
     }
