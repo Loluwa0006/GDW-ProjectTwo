@@ -174,6 +174,11 @@ public class BaseTower : MonoBehaviour
     {
         return string.Empty;
     }
+
+    public virtual string GetEmpoweredText()
+    {
+        return string.Empty;
+    }
     public virtual void OnRegistryUpdated(List<BaseTower> newRegistry)
     {
         int previousPower = empowerValue;

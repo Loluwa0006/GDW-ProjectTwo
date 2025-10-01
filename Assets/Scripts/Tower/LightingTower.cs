@@ -148,6 +148,12 @@ public class LightingTower : BaseTower
         return "Damage Per Second : " + (currentData.attackDamage/currentData.attackSpeed).ToString("#.00");
     }
 
+    public override string GetEmpoweredText()
+    {
+        return "Empowered: Slowing by " + (SLOW_SCALER * empowerValue) + " for " + (DURATION_SCALER * empowerValue) + " seconds.";
+    }
+
+
     public override void OnTowerEmpowered()
     {
         lightingParticles.Play();

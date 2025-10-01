@@ -12,6 +12,8 @@ public class UpgradePanel : MonoBehaviour
     public Button upgradeButton;
 
     public TMP_Text descriptionDisplay;
+
+    public TMP_Text empoweredDisplay;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
 }

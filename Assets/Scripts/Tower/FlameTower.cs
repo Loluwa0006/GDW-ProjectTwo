@@ -120,6 +120,11 @@ public class FlameTower : BaseTower
         return "Damage Per Second : " + (currentData.attackDamage / currentData.attackSpeed).ToString("#.00");
     }
 
+    public override string GetEmpoweredText()
+    {
+        return "Empowered: Stunning for " + (empowerValue * STUN_SCALER) + " seconds.";
+    }
+
    
 
 

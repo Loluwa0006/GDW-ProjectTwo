@@ -6,6 +6,7 @@ using System.Collections;
 using System;
 using Unity.Mathematics;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class GameManager : MonoBehaviour
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] UpgradePanel upgradePanel;
     [SerializeField] LayerMask unallowedMask;
     [SerializeField] LayerMask towerMask;
+   
     [SerializeField] TMP_Text winText;
     [SerializeField] TMP_Text loseText;
     [SerializeField] GameObject endScreen;
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<WaveData> waveData = new();
 
     WaveData currentWave = null;
+    LayerMask upgradeMask;
 
     float townRadius = 0;
 
@@ -61,6 +64,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaveLogic());
         endScreen.SetActive(false);
         Time.timeScale = 1.0f;
+        upgradeMask = LayerMask.GetMask("UpgradePanel");
 
     }
 
@@ -203,6 +207,11 @@ public class GameManager : MonoBehaviour
         upgradePanel.ToNextTierDisplay.text = tower.currentTier == tower.maxTier ? "MAX" : tower.GetNextUpgradeCost().ToString();
         upgradePanel.upgradeButton.interactable = tower.TowerUpgradable();
         upgradePanel.descriptionDisplay.text = tower.GetDescriptionText();
+
+        if (tower.empowerValue > 0)
+        {
+            upgradePanel.descriptionDisplay.text = tower.GetEmpoweredText();
+        }
     }
 
     IEnumerator WaveLogic()
@@ -263,21 +272,37 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0.0f;
             }
         }
-       // fpsTracker.text = "FPS: " + Mathf.RoundToInt(1.0f / Time.unscaledDeltaTime);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit mouseInfo, 100.0f, towerMask))
+        // fpsTracker.text = "FPS: " + Mathf.RoundToInt(1.0f / Time.unscaledDeltaTime);
+        if (Input.GetMouseButtonDown(0))
         {
 
-            BaseTower clickedTower = mouseInfo.collider.GetComponent<BaseTower>();
-            if (clickedTower != null && Input.GetMouseButtonDown(0))
+            if (EventSystem.current.IsPointerOverGameObject())
             {
-                clickedTower.OnTowerClicked();
+                return;
             }
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit mouseInfo, 100.0f, towerMask))
+            {
+
+                BaseTower clickedTower = mouseInfo.collider.GetComponent<BaseTower>();
+                if (clickedTower != null)
+                {
+                    clickedTower.OnTowerClicked();
+                    return;
+                }
+            }
+
+            upgradePanel.gameObject.SetActive(false);
+         
+
         }
+
+
+
     }
 
 
-public Vector3 GetAreaNearTownHall()
+    public Vector3 GetAreaNearTownHall()
     {
         Vector3 townPos = townHall.transform.position;
         float x = UnityEngine.Random.Range(townPos.x - townRadius, townPos.x + townRadius);
