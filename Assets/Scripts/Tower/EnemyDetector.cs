@@ -27,7 +27,7 @@ public class EnemyDetector : MonoBehaviour
         if (!detectedEnemies.Keys.Contains(enemy))
         {
             Debug.Log("detected enemy " + enemy);
-            detectedEnemies.Add(enemy, 0.0f);
+            AddEnemyToDictionary(enemy);
         }
     }
 
@@ -40,6 +40,20 @@ public class EnemyDetector : MonoBehaviour
         if (detectedEnemies.Keys.Contains(enemy))
         {
             Debug.Log("enemy " + enemy + " exited");
+            detectedEnemies.Remove(enemy);
+        }
+    }
+
+    public void AddEnemyToDictionary(BaseEnemy enemy)
+    {
+        detectedEnemies.Add(enemy, 0.0f);
+        enemy.enemyDefeated.AddListener(OnEnemyDefeated);
+    }
+
+    void OnEnemyDefeated(BaseEnemy enemy)
+    {
+        if (detectedEnemies.ContainsKey(enemy))
+        {
             detectedEnemies.Remove(enemy);
         }
     }

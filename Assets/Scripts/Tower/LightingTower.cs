@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -9,6 +10,7 @@ public class LightingTower : BaseTower
     const float SLOW_SCALER = 0.1f; // slows by 10% for each power value
     const float DURATION_SCALER = 0.5f;
 
+
     [System.Serializable]
     class UpgradeData
     {
@@ -16,13 +18,14 @@ public class LightingTower : BaseTower
         public int upgradeCost = 15;
         public int attackDamage = 1;
     }
+    [SerializeField] LineRenderer lightingTrails;
 
     [SerializeField] List<UpgradeData> upgradeDataList = new();
     [SerializeField] EnemyDetector detector;
 
     [SerializeField] int attackRadius = 10;
+    [SerializeField] ParticleSystem lightingParticles;
 
-    [HideInInspector] public bool empowered = false;
 
     Dictionary<int, UpgradeData> upgradeDataDict = new();
 
@@ -52,6 +55,13 @@ public class LightingTower : BaseTower
         detector.detectorArea.enabled = false;
         detector.transform.localScale = new Vector3(attackRadius, 0.1f, attackRadius);
         detector.mesh.enabled = true;
+
+        if (lightingTrails == null)
+        {
+            lightingTrails = GetComponent<LineRenderer>();
+        }
+        lightingParticles.Stop();
+        lightingTrails.enabled = false;
 
     }
 
@@ -96,7 +106,7 @@ public class LightingTower : BaseTower
                 }
                 detector.detectedEnemies[enemy] = 0;
                 Debug.Log("Hitting enemy " + enemy.name);
-
+                StartCoroutine(ApplyLightingTrails());
             }
         }
 
@@ -107,6 +117,21 @@ public class LightingTower : BaseTower
         return gameManager.GetCoins() >= upgradeDataDict[currentTier + 1].upgradeCost;
     }
 
+
+    public IEnumerator ApplyLightingTrails()
+    {
+        lightingTrails.enabled = true;
+        lightingTrails.positionCount = detector.detectedEnemies.Count * 2;
+        int index = 0;
+        foreach (var enemy in detector.detectedEnemies.Keys)
+        {
+            lightingTrails.SetPosition(index, transform.position);
+            lightingTrails.SetPosition(index + 1, enemy.transform.position);
+            index += 2;
+        }
+        yield return new WaitForSeconds(0.1f);
+        lightingTrails.enabled = false;
+    }
     public override void UpgradeTower()
     {
         base.UpgradeTower();
@@ -121,6 +146,16 @@ public class LightingTower : BaseTower
     public override string GetDescriptionText()
     {
         return "Damage Per Second : " + (currentData.attackDamage/currentData.attackSpeed).ToString("#.00");
+    }
+
+    public override void OnTowerEmpowered()
+    {
+        lightingParticles.Play();
+    }
+
+    public override void OnTowerDepowered()
+    {
+        lightingParticles.Stop();
     }
 
 }

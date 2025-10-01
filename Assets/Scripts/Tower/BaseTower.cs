@@ -176,6 +176,7 @@ public class BaseTower : MonoBehaviour
     }
     public virtual void OnRegistryUpdated(List<BaseTower> newRegistry)
     {
+        int previousPower = empowerValue;
         int newPower = 0;
         foreach (var conductor in conductorsPoweringTower)
         {
@@ -184,7 +185,26 @@ public class BaseTower : MonoBehaviour
         }
         empowerValue = newPower;
 
-        Debug.Log("New empower value is " + empowerValue);
+        if (previousPower <= 0 && empowerValue > 0)// if you didn't have power before, but now you do
+        {
+            OnTowerEmpowered();
+        }
+
+        else if (previousPower > 0 && empowerValue <= 0) //if you had power before, but now you don't
+        {
+            OnTowerDepowered();
+        }
+            Debug.Log("New empower value is " + empowerValue);
+    }
+
+    public virtual void OnTowerEmpowered()
+    {
+
+    }
+
+    public virtual void OnTowerDepowered()
+    {
+
     }
 
 }
