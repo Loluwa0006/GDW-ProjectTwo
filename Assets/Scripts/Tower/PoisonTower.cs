@@ -96,12 +96,10 @@ public class PoisonTower : BaseTower
     {
         BaseEnemy enemy = GetHealthiestEnemy();
 
+        if (enemy == null) { return; }
         if (!detector.detectedEnemies.ContainsKey(enemy)) { return; }
 
         Debug.Log("looking at enemy " + enemy.name);
-        detector.detectedEnemies[enemy] += Time.deltaTime;
-        if (detector.detectedEnemies[enemy] >= currentData.attackSpeed)
-        {
             enemy.Damage(currentData.attackDamage);
             if (empowerValue > 0)
             {
@@ -116,7 +114,7 @@ public class PoisonTower : BaseTower
             detector.detectedEnemies[enemy] = 0;
             Debug.Log("Hitting enemy " + enemy.name);
         }
-    }
+    
 
     public override void TowerLogic()
     {

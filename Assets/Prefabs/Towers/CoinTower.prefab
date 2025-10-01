@@ -201,6 +201,8 @@ MonoBehaviour:
     upgradeCost: 100
   - mineSpeed: 30
     upgradeCost: 250
+  - mineSpeed: 20
+    upgradeCost: 350
 --- !u!23 &4003237961032582800 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5945484177345331770, guid: 94637ee8463ba3d42823b95b87ff34e2, type: 3}

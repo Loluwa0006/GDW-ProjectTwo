@@ -388,6 +388,9 @@ MonoBehaviour:
   - attackSpeed: 0.8
     upgradeCost: 50
     attackDamage: 5
+  - attackSpeed: 0.55
+    upgradeCost: 100
+    attackDamage: 6
   detector: {fileID: 3851692801838797013}
   attackRadius: 10
   lightingParticles: {fileID: 4349528418730316606}

@@ -1,10 +1,8 @@
-using System.Collections;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using System.Linq;
 
 public class BaseEnemy : MonoBehaviour

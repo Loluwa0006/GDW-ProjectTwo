@@ -22,7 +22,8 @@ public class TowerPlacer : MonoBehaviour
         CoinCreator,
         LightingTurret,
         FlameTower,
-        Conductor
+        Conductor,
+        PoisonTower
     }
 
     [SerializeField]  List<TowerInfo> availableTowers = new();

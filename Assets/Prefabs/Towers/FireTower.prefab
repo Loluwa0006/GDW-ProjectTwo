@@ -424,6 +424,10 @@ MonoBehaviour:
     upgradeCost: 50
     attackDamage: 15
     attackRadius: 15
+  - attackSpeed: 3
+    upgradeCost: 100
+    attackDamage: 20
+    attackRadius: 18
   detector: {fileID: 2472352722782483946}
   flameParticles: {fileID: 2687333991634373398}
   flameLight: {fileID: 4006284403089864415}
